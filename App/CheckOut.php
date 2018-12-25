@@ -6,6 +6,6 @@ class CheckOut
 {
     public function scan()
     {
-        
+
     }
 }

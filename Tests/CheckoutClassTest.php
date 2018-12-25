@@ -8,13 +8,24 @@ use PHPUnit\Framework\TestCase;
 class CheckoutClassTest extends TestCase
 {
     /** @test */
-    function itHasMethodCalledScan()
+    public function itHasMethodCalledScan()
     {
         $checkout = new CheckOut();
 
         $this->assertTrue(
             method_exists($checkout, 'scan'),
             'Class CheckOut should contain method scan!'
+        );
+    }
+
+    /** @test */
+    public function itHasMethodCalledPrice()
+    {
+        $checkout = new CheckOut();
+
+        $this->assertTrue(
+            method_exists($checkout, 'price'),
+            'Class CheckOut should contain method price!'
         );
     }
 }
