@@ -8,4 +8,9 @@ class CheckOut
     {
 
     }
+
+    public function price()
+    {
+
+    }
 }
