@@ -34,4 +34,28 @@ class CsvRulesReaderClassTest extends TestCase
 
         $this->assertObjectHasAttribute('fileName', $csvRulesReader);
     }
+
+    /** @test */
+    public function itParsesTheCsvFileIntoAnArrayCorrectly()
+    {
+        $csvRulesReader = new CsvRulesReader('rules.csv');
+
+        $parsedData = $csvRulesReader->parseRules();
+
+        $this->assertArrayHasKey('prices', $parsedData);
+
+        $this->assertArrayHasKey('specialPrices', $parsedData);
+
+        $this->assertEquals([
+            'A' => 50,
+            'B' => 30,
+            'C' => 20,
+            'D' => 15
+        ], $parsedData['prices']);
+
+        $this->assertEquals([
+            'A' => [3 => 130],
+            'B' => [2 => 45],
+        ], $parsedData['specialPrices']);
+    }
 }
