@@ -29,7 +29,11 @@ abstract class Rules
     {
         $this->rulesReader = $rulesReader;
 
-        $this->prices = $rulesReader->parseRules()['prices'];
+        $rules = $rulesReader->parseRules();
+
+        $this->prices = $rules['prices'];
+
+        $this->specialPrices = $rules['specialPrices'];
     }
 
     abstract public function getPrice($itemName, $itemQuantity);

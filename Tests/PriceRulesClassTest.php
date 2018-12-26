@@ -63,10 +63,29 @@ class PriceRulesClassTest extends TestCase
 
         $itemName = 'A';
 
-        $itemQuantity = 3;
+        $itemQuantity = 2;
 
         $this->assertEquals(
             $priceRulesFromReader['prices'][$itemName] * $itemQuantity,
+            $priceRules->getPrice($itemName, $itemQuantity)
+        );
+    }
+
+    /** @test */
+    public function itShouldReturnTheCorrectPriceOfTheQuantityOfAnItemWithSpecialPrice()
+    {
+        $mockRules = new RulesReaderStub('rules');
+
+        $priceRules = new PriceRules($mockRules);
+
+        $priceRulesFromReader = $mockRules->parseRules();
+
+        $itemName = 'A';
+
+        $itemQuantity = 3;
+
+        $this->assertEquals(
+            $priceRulesFromReader['specialPrices'][$itemName][$itemQuantity],
             $priceRules->getPrice($itemName, $itemQuantity)
         );
     }
