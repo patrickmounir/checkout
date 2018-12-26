@@ -15,4 +15,15 @@ class PriceRulesClassTest extends TestCase
 
         $this->assertInstanceOf(Rules::class, $priceRules);
     }
+
+    /** @test */
+    public function itHasAMethodCalledGetPrice()
+    {
+        $priceRules = new PriceRules();
+
+        $this->assertTrue(
+            method_exists($priceRules, 'getPrice'),
+            'Class PriceRules should contain method getPrice!'
+        );
+    }
 }
