@@ -32,4 +32,14 @@ class PriceRulesClassTest extends TestCase
             'Class PriceRules should contain method getPrice!'
         );
     }
+
+    /** @test */
+    public function itShouldHaveAttributePrices()
+    {
+        $mockRules = (new MockBuilder($this, RulesReader::class))->getMock();
+
+        $priceRules = new PriceRules($mockRules);
+
+        $this->assertObjectHasAttribute('prices', $priceRules);
+    }
 }

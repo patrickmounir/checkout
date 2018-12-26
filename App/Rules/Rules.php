@@ -7,9 +7,16 @@ use App\Rules\Readers\RulesReader;
 abstract class Rules
 {
     /**
-     * @var RulesReader
+     * @var RulesReader $rulesReader
      */
     private $rulesReader;
+
+    /**
+     * Holds the prices of items.
+     *
+     * @var array $prices
+     */
+    protected $prices;
 
     public function __construct(RulesReader $rulesReader)
     {
