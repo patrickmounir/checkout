@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Rules;
+namespace App\Rules\Readers;
 
 class CsvRulesReader extends RulesReader
 {

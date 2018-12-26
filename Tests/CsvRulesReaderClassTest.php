@@ -2,8 +2,8 @@
 
 namespace Tests;
 
-use App\Rules\CsvRulesReader;
-use App\Rules\RulesReader;
+use App\Rules\Readers\CsvRulesReader;
+use App\Rules\Readers\RulesReader;
 use PHPUnit\Framework\TestCase;
 
 class CsvRulesReaderClassTest extends TestCase
