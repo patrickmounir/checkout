@@ -16,16 +16,11 @@ class CheckOut
      */
     private $checkoutCart;
 
-    /**
-     * @var int
-     */
-    private $total;
-
     public function __construct(Rules $rules)
     {
         $this->rules = $rules;
 
-        $this->total = 0;
+        $this->checkoutCart = [];
     }
 
     public function scan($itemName)
@@ -36,13 +31,11 @@ class CheckOut
 
         $this->checkoutCart[$itemName] = $this->checkoutCart[$itemName] + 1;
 
-        $this->total = $this->rules->getTotalPrice($this->checkoutCart);
-
         return $this;
     }
 
     public function getTotal()
     {
-        return $this->total;
+        return $this->rules->getTotalPrice($this->checkoutCart);
     }
 }

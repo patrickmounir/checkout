@@ -67,18 +67,6 @@ class CheckoutClassTest extends TestCase
     }
 
     /** @test */
-    public function itHasAttributeCalledTotal()
-    {
-        $mockRulesReader = new RulesReaderStub('rules');
-
-        $mockRules = new RulesStub($mockRulesReader);
-
-        $checkout = new CheckOut($mockRules);
-
-        $this->assertObjectHasAttribute('total', $checkout);
-    }
-
-    /** @test */
     public function itScansAndCalculateTotalIncrementallyCorrectly()
     {
         $csvRulesReader = new CsvRulesReader('rules.csv');
