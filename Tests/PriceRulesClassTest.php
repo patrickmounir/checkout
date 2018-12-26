@@ -42,4 +42,14 @@ class PriceRulesClassTest extends TestCase
 
         $this->assertObjectHasAttribute('prices', $priceRules);
     }
+
+    /** @test */
+    public function itShouldHaveAttributeSpecialPrices()
+    {
+        $mockRules = (new MockBuilder($this, RulesReader::class))->getMock();
+
+        $priceRules = new PriceRules($mockRules);
+
+        $this->assertObjectHasAttribute('specialPrices', $priceRules);
+    }
 }

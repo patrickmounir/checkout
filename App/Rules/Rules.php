@@ -18,6 +18,13 @@ abstract class Rules
      */
     protected $prices;
 
+    /**
+     * Holds the special prices of items and their condition.
+     *
+     * @var array $specialPrices
+     */
+    protected $specialPrices;
+
     public function __construct(RulesReader $rulesReader)
     {
         $this->rulesReader = $rulesReader;
