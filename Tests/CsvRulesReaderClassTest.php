@@ -11,7 +11,7 @@ class CsvRulesReaderClassTest extends TestCase
     /** @test */
     public function itIsAnInstanceOfRulesReader()
     {
-        $csvRulesReader = new CsvRulesReader();
+        $csvRulesReader = new CsvRulesReader('rules.csv');
 
         $this->assertInstanceOf(RulesReader::class, $csvRulesReader);
     }
@@ -19,11 +19,19 @@ class CsvRulesReaderClassTest extends TestCase
     /** @test */
     public function itHasAMethodCalledParseRules()
     {
-        $csvRulesReader = new CsvRulesReader();
+        $csvRulesReader = new CsvRulesReader('rules.csv');
 
         $this->assertTrue(
             method_exists($csvRulesReader, 'parseRules'),
             'Class CsVRulesReader should contain method parseRules!'
         );
+    }
+
+    /** @test */
+    public function itShouldHaveAttributeFileName()
+    {
+        $csvRulesReader = new CsvRulesReader('rules.csv');
+
+        $this->assertObjectHasAttribute('fileName', $csvRulesReader);
     }
 }
