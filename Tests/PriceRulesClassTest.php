@@ -7,13 +7,14 @@ use App\Rules\Readers\RulesReader;
 use App\Rules\Rules;
 use PHPUnit\Framework\MockObject\MockBuilder;
 use PHPUnit\Framework\TestCase;
+use Tests\Stubs\RulesReaderStub;
 
 class PriceRulesClassTest extends TestCase
 {
     /** @test */
     public function itIsAnInstanceOfRulesReader()
     {
-        $mockRules = (new MockBuilder($this, RulesReader::class))->getMock();
+        $mockRules = new RulesReaderStub('rules');
 
         $priceRules = new PriceRules($mockRules);
 
@@ -23,7 +24,7 @@ class PriceRulesClassTest extends TestCase
     /** @test */
     public function itHasAMethodCalledGetPrice()
     {
-        $mockRules = (new MockBuilder($this, RulesReader::class))->getMock();
+        $mockRules = new RulesReaderStub('rules');
 
         $priceRules = new PriceRules($mockRules);
 
@@ -36,7 +37,7 @@ class PriceRulesClassTest extends TestCase
     /** @test */
     public function itShouldHaveAttributePrices()
     {
-        $mockRules = (new MockBuilder($this, RulesReader::class))->getMock();
+        $mockRules = new RulesReaderStub('rules');
 
         $priceRules = new PriceRules($mockRules);
 
@@ -46,7 +47,7 @@ class PriceRulesClassTest extends TestCase
     /** @test */
     public function itShouldHaveAttributeSpecialPrices()
     {
-        $mockRules = (new MockBuilder($this, RulesReader::class))->getMock();
+        $mockRules = new RulesReaderStub('rules');
 
         $priceRules = new PriceRules($mockRules);
 
