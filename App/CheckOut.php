@@ -29,4 +29,9 @@ class CheckOut
     public function scan()
     {
     }
+
+    public function getTotal()
+    {
+        return $this->total;
+    }
 }

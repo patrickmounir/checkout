@@ -25,6 +25,21 @@ class CheckoutClassTest extends TestCase
     }
 
     /** @test */
+    public function itHasMethodCalledGetTotal()
+    {
+        $mockRulesReader = new RulesReaderStub('rules');
+
+        $mockRules = new RulesStub($mockRulesReader);
+
+        $checkout = new CheckOut($mockRules);
+
+        $this->assertTrue(
+            method_exists($checkout, 'getTotal'),
+            'Class CheckOut should contain method getTotal!'
+        );
+    }
+
+    /** @test */
     public function itHasAttributeCalledRules()
     {
         $mockRulesReader = new RulesReaderStub('rules');
