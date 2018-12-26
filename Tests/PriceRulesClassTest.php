@@ -33,6 +33,19 @@ class PriceRulesClassTest extends TestCase
     }
 
     /** @test */
+    public function itHasAMethodCalledGetTotalPrice()
+    {
+        $mockRules = new RulesReaderStub('rules');
+
+        $priceRules = new PriceRules($mockRules);
+
+        $this->assertTrue(
+            method_exists($priceRules, 'getTotalPrice'),
+            'Class PriceRules should contain method getTotalPrice!'
+        );
+    }
+
+    /** @test */
     public function itShouldHaveAttributePrices()
     {
         $mockRules = new RulesReaderStub('rules');
@@ -87,6 +100,48 @@ class PriceRulesClassTest extends TestCase
         $this->assertEquals(
             $priceRulesFromReader['specialPrices'][$itemName][$itemQuantity],
             $priceRules->getPrice($itemName, $itemQuantity)
+        );
+    }
+
+    /** @test */
+    public function itShouldReturnTheCorrectTotalForAllCartWithSpecialPrice()
+    {
+        $mockRules = new RulesReaderStub('rules');
+
+        $priceRules = new PriceRules($mockRules);
+
+        $priceRulesFromReader = $mockRules->parseRules();
+
+        $cart = [
+            'A' => 7,
+        ];
+
+        $totalCost = 2 * $priceRulesFromReader['specialPrices']['A'][3] + $priceRulesFromReader['prices']['A'];
+
+        $this->assertEquals(
+            $totalCost,
+            $priceRules->getTotalPrice($cart)
+        );
+    }
+
+    /** @test */
+    public function itShouldReturnTheCorrectTotalForCart()
+    {
+        $mockRules = new RulesReaderStub('rules');
+
+        $priceRules = new PriceRules($mockRules);
+
+        $priceRulesFromReader = $mockRules->parseRules();
+
+        $cart = [
+            'A' => 1,
+        ];
+
+        $totalCost = $priceRulesFromReader['prices']['A'];
+
+        $this->assertEquals(
+            $totalCost,
+            $priceRules->getTotalPrice($cart)
         );
     }
 }

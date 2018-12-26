@@ -37,4 +37,6 @@ abstract class Rules
     }
 
     abstract public function getPrice($itemName, $itemQuantity);
+
+    abstract public function getTotalPrice($cart);
 }

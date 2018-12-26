@@ -36,9 +36,7 @@ class CheckOut
 
         $this->checkoutCart[$itemName] = $this->checkoutCart[$itemName] + 1;
 
-        $this->total = $this->total -
-            $this->rules->getPrice($itemName, $this->checkoutCart[$itemName] - 1) +
-            $this->rules->getPrice($itemName, $this->checkoutCart[$itemName]);
+        $this->total = $this->rules->getTotalPrice($this->checkoutCart);
 
         return $this;
     }

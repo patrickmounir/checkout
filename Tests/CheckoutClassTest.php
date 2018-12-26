@@ -104,4 +104,44 @@ class CheckoutClassTest extends TestCase
         $checkout->scan("B");
         $this->assertEquals(175, $checkout->getTotal());
     }
+
+    /** @test */
+    public function itScansAndCalculateTotalCorrectly()
+    {
+        $this->assertEquals(0, $this->price(""));
+        $this->assertEquals(50, $this->price("A"));
+        $this->assertEquals(80, $this->price("AB"));
+        $this->assertEquals(115, $this->price("CDBA"));
+
+        $this->assertEquals(100, $this->price("AA"));
+        $this->assertEquals(130, $this->price("AAA"));
+        $this->assertEquals(180, $this->price("AAAA"));
+        $this->assertEquals(230, $this->price("AAAAA"));
+        $this->assertEquals(260, $this->price("AAAAAA"));
+
+        $this->assertEquals(160, $this->price("AAAB"));
+        $this->assertEquals(175, $this->price("AAABB"));
+        $this->assertEquals(190, $this->price("AAABBD"));
+        $this->assertEquals(190, $this->price("DABABA"));
+    }
+
+    private function price($itemSequence)
+    {
+        $csvRulesReader = new CsvRulesReader('rules.csv');
+
+        $priceRules = new PriceRules($csvRulesReader);
+
+        $checkout = new CheckOut($priceRules);
+
+        if ($itemSequence === "") {
+            return $checkout->getTotal();
+        }
+        $itemsArray = str_split($itemSequence);
+
+        foreach ($itemsArray as $item) {
+            $checkout->scan($item);
+        }
+
+        return $checkout->getTotal();
+    }
 }

@@ -10,4 +10,8 @@ class RulesStub extends Rules
     public function getPrice($itemName, $itemQuantity)
     {
     }
+
+    public function getTotalPrice($cart)
+    {
+    }
 }

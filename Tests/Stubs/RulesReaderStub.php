@@ -17,7 +17,7 @@ class RulesReaderStub extends RulesReader
             ],
             'specialPrices' => [
                 'A' => [3 => 130],
-                'B' => [2 => 45],
+                'B' => [3 => 45],
             ]
         ];
     }
