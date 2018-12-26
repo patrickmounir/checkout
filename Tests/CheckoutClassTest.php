@@ -3,6 +3,8 @@
 namespace Tests;
 
 use App\CheckOut;
+use App\Rules\PriceRules;
+use App\Rules\Readers\CsvRulesReader;
 use PHPUnit\Framework\TestCase;
 use Tests\Stubs\RulesReaderStub;
 use Tests\Stubs\RulesStub;
@@ -74,5 +76,32 @@ class CheckoutClassTest extends TestCase
         $checkout = new CheckOut($mockRules);
 
         $this->assertObjectHasAttribute('total', $checkout);
+    }
+
+    /** @test */
+    public function itScansAndCalculateTotalIncrementallyCorrectly()
+    {
+        $csvRulesReader = new CsvRulesReader('rules.csv');
+
+        $priceRules = new PriceRules($csvRulesReader);
+
+        $checkout = new CheckOut($priceRules);
+
+        $this->assertEquals(0, $checkout->getTotal());
+
+        $checkout->scan("A");
+        $this->assertEquals(50, $checkout->getTotal());
+
+        $checkout->scan("B");
+        $this->assertEquals(80, $checkout->getTotal());
+
+        $checkout->scan("A");
+        $this->assertEquals(130, $checkout->getTotal());
+
+        $checkout->scan("A");
+        $this->assertEquals(160, $checkout->getTotal());
+
+        $checkout->scan("B");
+        $this->assertEquals(175, $checkout->getTotal());
     }
 }
