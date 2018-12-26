@@ -7,11 +7,24 @@ class PriceRules extends Rules
 
     public function getPrice($itemName, $itemQuantity)
     {
-        if (array_has($this->specialPrices, [$itemName]) &&
-            array_has($this->specialPrices[$itemName], [$itemQuantity])) {
-            return $this->specialPrices[$itemName][$itemQuantity];
+        $price = 0;
+
+        if (array_has($this->specialPrices, [$itemName])) {
+            $specialQuantity = array_keys($this->specialPrices[$itemName])[0];
+
+            if ($itemQuantity / $specialQuantity >= 1) {
+                $specialPrice = $this->specialPrices[$itemName][$specialQuantity]
+                    * (int)($itemQuantity / $specialQuantity);
+
+                $itemQuantity = ($itemQuantity % $specialQuantity);
+
+                $price += $specialPrice;
+            }
         }
-        return $this->prices[$itemName] * $itemQuantity;
+
+        $price += $this->prices[$itemName] * $itemQuantity;
+
+        return $price;
     }
 
     public function getTotalPrice($cart)
@@ -19,18 +32,6 @@ class PriceRules extends Rules
         $price = 0;
 
         foreach ($cart as $item => $quantity) {
-            if (array_has($this->specialPrices, [$item])) {
-                $specialQuantity = array_keys($this->specialPrices[$item])[0];
-
-                if ($quantity / $specialQuantity >= 1) {
-                    $specialPrice = $this->getPrice($item, $specialQuantity) * (int)($quantity / $specialQuantity);
-
-                    $quantity = ($quantity % $specialQuantity);
-
-                    $price += $specialPrice;
-                }
-            }
-
             $price += $this->getPrice($item, $quantity);
         }
 
