@@ -5,7 +5,8 @@ namespace App\Rules;
 class PriceRules extends Rules
 {
 
-    public function getPrice()
+    public function getPrice($itemName, $itemQuantity)
     {
+        return $this->prices[$itemName] * $itemQuantity;
     }
 }

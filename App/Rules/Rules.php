@@ -28,7 +28,9 @@ abstract class Rules
     public function __construct(RulesReader $rulesReader)
     {
         $this->rulesReader = $rulesReader;
+
+        $this->prices = $rulesReader->parseRules()['prices'];
     }
 
-    abstract public function getPrice();
+    abstract public function getPrice($itemName, $itemQuantity);
 }
