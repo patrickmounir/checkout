@@ -11,6 +11,11 @@ class CheckOut
      */
     private $rules;
 
+    /**
+     * @var array
+     */
+    private $checkoutCart;
+
     public function __construct(Rules $rules)
     {
         $this->rules = $rules;

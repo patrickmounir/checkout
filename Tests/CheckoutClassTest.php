@@ -50,4 +50,17 @@ class CheckoutClassTest extends TestCase
 
         $this->assertObjectHasAttribute('rules', $checkout);
     }
+
+
+    /** @test */
+    public function itHasAttributeCalledCheckoutCart()
+    {
+        $mockRulesReader = new RulesReaderStub('rules');
+
+        $mockRules = new RulesStub($mockRulesReader);
+
+        $checkout = new CheckOut($mockRules);
+
+        $this->assertObjectHasAttribute('checkoutCart', $checkout);
+    }
 }
