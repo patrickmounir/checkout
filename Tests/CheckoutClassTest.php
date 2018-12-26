@@ -48,4 +48,16 @@ class CheckoutClassTest extends TestCase
 
         $this->assertObjectHasAttribute('checkoutCart', $checkout);
     }
+
+    /** @test */
+    public function itHasAttributeCalledTotal()
+    {
+        $mockRulesReader = new RulesReaderStub('rules');
+
+        $mockRules = new RulesStub($mockRulesReader);
+
+        $checkout = new CheckOut($mockRules);
+
+        $this->assertObjectHasAttribute('total', $checkout);
+    }
 }
