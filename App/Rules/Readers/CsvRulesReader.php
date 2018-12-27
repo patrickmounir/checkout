@@ -11,38 +11,51 @@ class CsvRulesReader extends RulesReader
      */
     public function parseRules()
     {
-        $parsedRules['prices'] = [];
-
-        $parsedRules['specialPrices'] = [];
+        $parsedRules = ['prices' => [], 'specialPrices' => []];
 
         $row = 0;
 
-        $handle = fopen($this->fileName, "r");
+        $file = fopen($this->fileName, "r");
 
-        if (!$handle) {
+        if (!$file) {
             return $parsedRules;
         }
 
-        while (($data = fgetcsv($handle, 1000, ","))) {
+        while (($pricesRow = fgetcsv($file, 1000, ","))) {
             $row++;
             if ($row === 1) {
                 continue;
             }
 
-            $num = count($data);
-
-            $parsedRules['prices'][$data[0]] = $data[1];
-
-            if ($num === 3) {
-                $specialPricesCondition = explode('for', $data[2]);
-
-                $parsedRules['specialPrices'][$data[0]] = [
-                    trim($specialPricesCondition[0]) => trim($specialPricesCondition[1])
-                ];
-            }
+            $parsedRules = $this->extractPrice($pricesRow, $parsedRules);
         }
 
-        fclose($handle);
+        fclose($file);
+
+        return $parsedRules;
+    }
+
+    /**
+     * Reads the price and special price condition of an item and saves it in an array.
+     *
+     * @param $pricesRow
+     * @param $parsedRules
+     *
+     * @return mixed
+     */
+    private function extractPrice($pricesRow, $parsedRules)
+    {
+        $rowLength = count($pricesRow);
+
+        $parsedRules['prices'][$pricesRow[0]] = $pricesRow[1];
+
+        if ($rowLength === 3) {
+            $specialPricesCondition = explode('for', $pricesRow[2]);
+
+            $parsedRules['specialPrices'][$pricesRow[0]] = [
+                trim($specialPricesCondition[0]) => trim($specialPricesCondition[1])
+            ];
+        }
 
         return $parsedRules;
     }
