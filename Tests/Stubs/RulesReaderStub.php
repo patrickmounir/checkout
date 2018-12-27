@@ -6,6 +6,11 @@ use App\Rules\Readers\RulesReader;
 
 class RulesReaderStub extends RulesReader
 {
+    /**
+     * Returning a fixed array for testing.
+     *
+     * @return array
+     */
     public function parseRules()
     {
         return [
