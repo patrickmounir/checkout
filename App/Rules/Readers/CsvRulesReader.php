@@ -4,6 +4,11 @@ namespace App\Rules\Readers;
 
 class CsvRulesReader extends RulesReader
 {
+    /**
+     * Parses the rules in the fileName to an array in order to interpret prices and special offers.
+     *
+     * @return mixed
+     */
     public function parseRules()
     {
         $parsedRules['prices'] = [];
