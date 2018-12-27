@@ -47,7 +47,7 @@ abstract class Rules
      * @param $itemName
      * @param $itemQuantity
      *
-     * @return mixed
+     * @return int
      */
     abstract public function getPrice($itemName, $itemQuantity);
 
@@ -56,7 +56,7 @@ abstract class Rules
      *
      * @param $cart
      *
-     * @return mixed
+     * @return int
      */
     abstract public function getTotalPrice($cart);
 }

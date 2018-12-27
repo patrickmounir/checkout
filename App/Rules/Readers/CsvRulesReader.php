@@ -7,7 +7,7 @@ class CsvRulesReader extends RulesReader
     /**
      * Parses the rules in the fileName to an array in order to interpret prices and special offers.
      *
-     * @return mixed
+     * @return array
      */
     public function parseRules()
     {
@@ -43,7 +43,6 @@ class CsvRulesReader extends RulesReader
         }
 
         fclose($handle);
-
 
         return $parsedRules;
     }

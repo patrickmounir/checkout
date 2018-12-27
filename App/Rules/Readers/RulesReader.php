@@ -22,7 +22,7 @@ abstract class RulesReader
     /**
      * Parses the rules in the fileName to an array in order to interpret prices and special offers.
      *
-     * @return mixed
+     * @return array
      */
     abstract public function parseRules();
 }
