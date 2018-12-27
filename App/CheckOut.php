@@ -16,6 +16,11 @@ class CheckOut
      */
     private $checkoutCart;
 
+    /**
+     * CheckOut constructor.
+     *
+     * @param Rules $rules
+     */
     public function __construct(Rules $rules)
     {
         $this->rules = $rules;
@@ -23,6 +28,13 @@ class CheckOut
         $this->checkoutCart = [];
     }
 
+    /**
+     * Adds the item to the cart for checkout.
+     *
+     * @param $itemName
+     *
+     * @return $this
+     */
     public function scan($itemName)
     {
         if (!array_has($this->checkoutCart, [$itemName])) {
@@ -34,6 +46,11 @@ class CheckOut
         return $this;
     }
 
+    /**
+     * Calculates the total price of the cart.
+     *
+     * @return int
+     */
     public function getTotal()
     {
         return $this->rules->getTotalPrice($this->checkoutCart);
