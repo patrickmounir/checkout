@@ -16,18 +16,7 @@ class PriceRules extends Rules
     {
         $price = 0;
 
-        if (array_has($this->specialPrices, [$itemName])) {
-            $specialQuantity = array_keys($this->specialPrices[$itemName])[0];
-
-            if ($itemQuantity / $specialQuantity >= 1) {
-                $specialPrice = $this->specialPrices[$itemName][$specialQuantity]
-                    * (int)($itemQuantity / $specialQuantity);
-
-                $itemQuantity = ($itemQuantity % $specialQuantity);
-
-                $price += $specialPrice;
-            }
-        }
+        list($itemQuantity, $price) = $this->CalculateSpecialPrice($itemName, $itemQuantity, $price);
 
         $price += $this->prices[$itemName] * $itemQuantity;
 
@@ -50,5 +39,32 @@ class PriceRules extends Rules
         }
 
         return $price;
+    }
+
+    /**
+     * Calculates special price if applicable and subtracts the quantity required for
+     * the special price from the original quantity.
+     *
+     * @param $itemName
+     * @param $itemQuantity
+     * @param $price
+     *
+     * @return array
+     */
+    private function calculateSpecialPrice($itemName, $itemQuantity, $price)
+    {
+        if (array_has($this->specialPrices, [$itemName])) {
+            $specialQuantity = array_keys($this->specialPrices[$itemName])[0];
+
+            if ($itemQuantity / $specialQuantity >= 1) {
+                $specialPrice = $this->specialPrices[$itemName][$specialQuantity]
+                    * (int)($itemQuantity / $specialQuantity);
+
+                $itemQuantity = ($itemQuantity % $specialQuantity);
+
+                $price += $specialPrice;
+            }
+        }
+        return array($itemQuantity, $price);
     }
 }
