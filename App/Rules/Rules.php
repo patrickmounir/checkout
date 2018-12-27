@@ -25,6 +25,11 @@ abstract class Rules
      */
     protected $specialPrices;
 
+    /**
+     * Rules constructor.
+     *
+     * @param RulesReader $rulesReader
+     */
     public function __construct(RulesReader $rulesReader)
     {
         $this->rulesReader = $rulesReader;
@@ -36,7 +41,22 @@ abstract class Rules
         $this->specialPrices = $rules['specialPrices'];
     }
 
+    /**
+     * Gets the price of the item given with the quantity given.
+     *
+     * @param $itemName
+     * @param $itemQuantity
+     *
+     * @return mixed
+     */
     abstract public function getPrice($itemName, $itemQuantity);
 
+    /**
+     * Gets the total cost of the items in the cart given.
+     *
+     * @param $cart
+     *
+     * @return mixed
+     */
     abstract public function getTotalPrice($cart);
 }

@@ -4,7 +4,14 @@ namespace App\Rules;
 
 class PriceRules extends Rules
 {
-
+    /**
+     * Gets the price of the item given with the quantity given.
+     *
+     * @param $itemName
+     * @param $itemQuantity
+     *
+     * @return mixed
+     */
     public function getPrice($itemName, $itemQuantity)
     {
         $price = 0;
@@ -27,6 +34,13 @@ class PriceRules extends Rules
         return $price;
     }
 
+    /**
+     * Gets the total cost of the items in the cart given.
+     *
+     * @param $cart
+     *
+     * @return mixed
+     */
     public function getTotalPrice($cart)
     {
         $price = 0;
